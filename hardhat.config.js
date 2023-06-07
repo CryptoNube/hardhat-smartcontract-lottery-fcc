@@ -20,12 +20,13 @@ module.exports = {
             blockConfirmations: 1,
         },
         sepolia: {
-            url: SEPOLIA_RPC_URL,
             chainId: 11155111,
             accounts: [PRIVATE_KEY],
             blockConfirmations: 6,
+            url: SEPOLIA_RPC_URL,
         },
     },
+
     solidity: "0.8.18",
     namedAccounts: {
         deployer: {

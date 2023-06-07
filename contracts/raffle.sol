@@ -7,7 +7,7 @@
 // Chainlink Oracle -> Randomness, Automated Execution (Chainlink Keeper)
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.18;
 
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
@@ -72,8 +72,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     }
 
     function enterRaffle() public payable {
-        //require msg.value > i_entranceFee, "Not enough ETH!"
-        if (msg.value > i_entranceFee) {
+        if (msg.value < i_entranceFee) {
             revert Raffle__NotEnoughETHEntered();
         }
         if (s_raffleState != RaffleState.OPEN) {
@@ -172,5 +171,9 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
     function getRequestConfirmations() public pure returns (uint256) {
         return REQUEST_CONFIRMATIONS;
+    }
+
+    function getInterval() public view returns (uint256) {
+        return i_interval;
     }
 }
